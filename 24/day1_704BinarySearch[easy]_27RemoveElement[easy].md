@@ -1,11 +1,13 @@
 # [704.BinarySearch](https://leetcode.com/problems/binary-search/)
 
-平均时间复杂度O(logn) \
-空间复杂度O(1) 
+time: O(logn)\
+space: O(1) 
 
-## Idea
-index based solutions, minimize search range inclusively in each loop
+### Idea
+two pointers based solution\
+minimize search range inclusively in each loop
 
+### Java
 ``` java
 class Solution {
     public int search(int[] nums, int target) {
@@ -34,34 +36,32 @@ class Solution {
 
 # [27. Remove Element](https://leetcode.com/problems/remove-element/description/)
 
-平均时间复杂度O(logn) \
-空间复杂度O(1) 
+time: O(n) \
+space: O(1) 
 
-## Idea
-index based solutions, minimize search range inclusively in each loop
+### Idea
+two pointers based solution\
+keep track element on right pointer\
+if element on right is not value, add left by 1 and copy to position on left\
+return left + 1
 
+### Java
 ``` java
 class Solution {
-    public int search(int[] nums, int target) {
-        
-        int left = 0;
-        int right = nums.length - 1;
-        int mid = 0;
+    public int removeElement(int[] nums, int val) {
+        int left = -1;
+        int right = 0;
+        int n = nums.length;
 
-        while(left <= right) {
-            mid = left + (right - left) / 2;
-            if(nums[mid] == target)
-                return mid;
-            else if(nums[mid] < target) {
-                left = mid + 1;
+        while(right < n) {
+            if(nums[right] != val) {
+                left++;
+                nums[left] = nums[right];
             }
-            else {
-                right = mid - 1;
-            }
+            right++;
         }
 
-        return -1;
+        return left + 1;
     }
 }
-
 ```
