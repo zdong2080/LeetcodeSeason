@@ -88,3 +88,69 @@ class Solution {
     }
 }
 ```
+
+
+# [59. Spiral Matrix II](https://leetcode.com/problems/spiral-matrix-ii/description/)
+
+time: O(n) \
+space: O\(N^2\)
+
+### Idea
+slide window based solution\
+keep track total inside window\
+if total >= target, remove element from left side of window, otherwise add element from right side
+
+### Java
+``` java
+class Solution {
+    public int[][] generateMatrix(int n) {
+        int[][] res = new int[n][n];
+
+        int left = 0;
+        int right = n - 1;
+        int top = 0;
+        int bot = n - 1;
+
+        int i = 1;
+        while(i <= n * n) {
+            // right
+            int count = left;
+            while(count <= right) {
+                res[top][count] = i;
+                count++;
+                i++;
+            }
+            top++;
+
+            // bot
+            count = top;
+            while(count <= bot) {
+                res[count][right] = i;
+                count++;
+                i++;
+            }
+            right--;
+
+            // left
+            count = right;
+            while(count >= left) {
+                res[bot][count] = i;
+                count--;
+                i++;
+            }
+            bot--;
+
+            // top
+            count = bot;
+            while(count >= top) {
+                res[count][left] = i;
+                count--;
+                i++;
+            }
+            left++;
+        }
+
+        return res;
+    }
+}
+```
