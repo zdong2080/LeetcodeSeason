@@ -92,13 +92,12 @@ class Solution {
 
 # [59. Spiral Matrix II](https://leetcode.com/problems/spiral-matrix-ii/description/)
 
-time: O(n) \
-space: O\(N^2\)
+time: O($n^2$) \
+space: O($n^2$)
 
 ### Idea
-slide window based solution\
-keep track total inside window\
-if total >= target, remove element from left side of window, otherwise add element from right side
+keep change the boundary of top, bot, left, and right\
+and maintain a variable of 1...n
 
 ### Java
 ``` java
