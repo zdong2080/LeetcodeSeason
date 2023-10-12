@@ -1,34 +1,45 @@
-# [704.BinarySearch](https://leetcode.com/problems/binary-search/)
+# [977. Squares of a Sorted Array](https://leetcode.com/problems/squares-of-a-sorted-array/description/)
 
-time: O(logn)\
-space: O(1) 
+time: O(n)\
+space: O(n) 
+
+### Need hint
+first time of thinking is squart in place and bubble sort but this can be O(nlogn)\
+hint: after square every elements, the middle one is smallest\
+and the largest number on each side
 
 ### Idea
 two pointers based solution\
-minimize search range inclusively in each loop
+minimize right and maximize left pointer so reach the middle one\
+which is the smallest
 
 ### Java
 ``` java
 class Solution {
-    public int search(int[] nums, int target) {
-        
-        int left = 0;
-        int right = nums.length - 1;
-        int mid = 0;
+    public int[] sortedSquares(int[] nums) {
+        int n = nums.length;
+    
+        for(int i = 0; i < n; i++) {
+            nums[i] *= nums[i];
+        }
 
-        while(left <= right) {
-            mid = left + (right - left) / 2;
-            if(nums[mid] == target)
-                return mid;
-            else if(nums[mid] < target) {
-                left = mid + 1;
+        int[] new_nums = new int[n];
+        // System.out.println(new_nums[0]);
+
+        int i = n - 1;
+        int left = 0;
+        int right = n - 1;
+        while (left <= right) {
+            if(nums[left] < nums[right]) {
+                new_nums[i--] = nums[right--];
             }
             else {
-                right = mid - 1;
+                new_nums[i--] = nums[left++];
             }
         }
 
-        return -1;
+
+        return new_nums;
     }
 }
 
