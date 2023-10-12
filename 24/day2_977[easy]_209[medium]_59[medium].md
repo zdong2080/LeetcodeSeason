@@ -45,34 +45,46 @@ class Solution {
 
 ```
 
-# [27. Remove Element](https://leetcode.com/problems/remove-element/description/)
+# [209. Minimum Size Subarray Sum](https://leetcode.com/problems/minimum-size-subarray-sum/description/)
 
 time: O(n) \
 space: O(1) 
 
 ### Idea
-two pointers based solution\
-keep track element on right pointer\
-if element on right is not value, add left by 1 and copy to position on left\
-return left + 1
+slide window based solution\
+keep track total inside window\
+if total >= target, remove element from left side of window, otherwise add element from right side
 
 ### Java
 ``` java
 class Solution {
-    public int removeElement(int[] nums, int val) {
-        int left = -1;
-        int right = 0;
+    public int minSubArrayLen(int target, int[] nums) {
         int n = nums.length;
 
-        while(right < n) {
-            if(nums[right] != val) {
-                left++;
-                nums[left] = nums[right];
-            }
-            right++;
-        }
+        int l = 0;
+        int r = 0;
+        int window = 0;
+        int res = Integer.MAX_VALUE;
 
-        return left + 1;
+        while(r < n) {
+            int right = nums[r];
+            if(window < target) {
+                window += right;
+                r++;
+            }
+            while(window >= target) {
+                int diff = r - l;
+                res = Math.min(res, diff);
+                int left = nums[l];
+                window -= left;
+                l++;
+            }
+        }
+        
+        if(res == Integer.MAX_VALUE) {
+            return 0;
+        }
+        return res;
     }
 }
 ```
